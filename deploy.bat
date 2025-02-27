@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Modified path of static files"
+git commit -m "changed build cmd"
 git push
