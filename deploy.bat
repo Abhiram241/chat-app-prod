@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Added dummies"
+git commit -m "Modified path of static files"
 git push

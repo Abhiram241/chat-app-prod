@@ -76,9 +76,9 @@ app.use("/api/messages", messageRoutes);
 // });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/frontend")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist"))); // Serve static files
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/dist", "index.html")); // Serve index.html
   });
 }
 server.listen(PORT, () => {
