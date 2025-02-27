@@ -14,9 +14,11 @@ const __dirname = path.resolve();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
+const frontendURL = process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'http://localhost:5173';
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: frontendURL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -76,9 +78,10 @@ app.use("/api/messages", messageRoutes);
 // });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  const absoluteFrontendPath = "/opt/render/project/src/frontend/dist";
+  app.use(express.static(absoluteFrontendPath));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(absoluteFrontendPath, "index.html"));
   });
 }
 server.listen(PORT, () => {
